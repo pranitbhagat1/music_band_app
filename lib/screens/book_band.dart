@@ -23,6 +23,8 @@ class _BookBandState extends State<BookBand> {
 
   final dbRef = FirebaseDatabase.instance.reference();
 
+  late DateTime dateTime;
+
   void writeData() async {
     _formKey.currentState!.save();
     var url =
@@ -46,6 +48,12 @@ class _BookBandState extends State<BookBand> {
     } catch (e) {
       print("Error = " + e.toString());
     }
+  }
+  
+  @override
+  void initState() { 
+    super.initState();
+    dateTime = DateTime.now();
   }
 
   @override
@@ -130,6 +138,7 @@ class _BookBandState extends State<BookBand> {
                     Container(
                       child: TextFormField(
                         controller: dateController,
+                        onTap: _pickDate,
                         decoration: InputDecoration(
                           labelText: "Date",
                           contentPadding: const EdgeInsets.all(8.0),
@@ -137,8 +146,8 @@ class _BookBandState extends State<BookBand> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
-                        validator: (value) =>
-                            value!.isEmpty ? "Date is required" : null,
+                        // validator: (value) =>
+                        //     value!.isEmpty ? "Date is required" : null,
                       ),
                     ),
                     SizedBox(
@@ -185,4 +194,21 @@ class _BookBandState extends State<BookBand> {
               )),
         ));
   }
+
+  Future _pickDate() async {
+    DateTime? date = await showDatePicker(
+      context: context, 
+      initialDate: dateTime, 
+      firstDate: DateTime(DateTime.now().year), 
+      lastDate: DateTime(DateTime.now().year)
+      );
+
+      if(date == null)
+       setState(() {
+        //  data.registrationdate = date.toString(),
+       dateController.text = date.toString();
+       }
+       );
+  }
+
 }
