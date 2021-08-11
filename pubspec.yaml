@@ -22,6 +22,9 @@ dependencies:
   flutter_signin_button: ^1.0.0
   firebase_core: ^1.4.0
   google_sign_in: ^4.5.9
+  firebase_database: ^7.1.2
+  http: ^0.13.3
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
@@ -42,7 +45,7 @@ flutter:
   assets:
    - images/login.png
    - images/signup.png
-   
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
